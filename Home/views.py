@@ -54,12 +54,12 @@ def toggle_meal_off(request, meal_type):
                 subscription.is_lunch_off = not subscription.is_lunch_off
         elif meal_type == 'dinner':
             
-            if time(12, 0) <= current_time < time(18, 0):
+            if time(12, 0) <= current_time < time(15, 0):
                 print("Toggling dinner")
                 subscription.is_dinner_off = not subscription.is_dinner_off
         elif meal_type == 'both':
            
-            if (time(0, 0) <= current_time < time(23, 0)):
+            if (time(0, 0) <= current_time < time(9, 0)):
                 print("Toggling both lunch and dinner")
                 subscription.is_lunch_off = not subscription.is_lunch_off
                 subscription.is_dinner_off = not subscription.is_dinner_off
