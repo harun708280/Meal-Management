@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-light {
+            background-color: #28a733 !important;
+        }
+        .style {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .price-card {
+            transition: transform 0.2s;
+            height: 100%; /* Ensure cards take full height of the column */
+        }
+        .price-card:hover {
+            transform: scale(1.05);
+        }
+        .btn-card-new {
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            color: #28a745;
+            border: 2px solid #28a745;
+            background-color: transparent;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-card-new:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <a href="{% url 'home' %}">
+            <div class="text-end">
+                <a href="{% url "home" %}"><button class="btn btn-card-new mt-auto">Back To Home</button></a>
+            </div>
+        </a>
+        <h1 style="text-align: center; margin: 20px 0;">Welcome to Your Dashboard</h1>
+        
+        <h2 style="text-align: center;">{{ request.user.username }} Subscriptions:</h2>
+        <table class="table" style="width: 100%; margin: 20px 0; border-collapse: collapse;">
+            <thead  style="background-color: #28a733;">
+                <tr>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">Plan</th>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">Category</th>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">Start Date</th>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">End Date</th>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">Lunch Status</th>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">Dinner Status</th>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">Mill Charge</th>
+                    <th style="border: 1px solid #dee2e6; padding: 8px;">Total Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subscription in user_subscriptions %}
+                <tr>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">{{ subscription.get_plan_display }}</td>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">{{ subscription.category }}</td>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">{{ subscription.start_date }}</td>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">{{ subscription.end_date }}</td>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">{% if subscription.is_lunch_off %}OFF{% else %}ON{% endif %}</td>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">{% if subscription.is_dinner_off %}OFF{% else %}ON{% endif %}</td>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">
+                        {% if subscription.category == 'Premium' %}
+                            {{ subscription.Primium_balance.Primium_balance }}
+                        {% else %}
+                            {{ subscription.Reguler_balance.Reguler_balance }}
+                        {% endif %}
+                    </td>
+                    <td style="border: 1px solid #dee2e6; padding: 8px;">
+                        {% if subscription.category == 'Premium' %}
+                            {{ subscription.pri_line }}
+                        {% else %}
+                            {{ subscription.line_Total }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <form method="post" action="{% url 'toggle_meal_off' %}" style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+            {% csrf_token %}
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="meal_type" style="font-weight: bold;">Select Meal Type:</label>
+                <select class="form-control" name="meal_type" id="meal_type" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 100%;" required>
+                    <option value="">Select</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+            <div class="text-end">
+                <button class="btn btn-card-new mt-auto">Your Subscripton</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

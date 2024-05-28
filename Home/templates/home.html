@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Packages</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-light {
+            background-color: #28a733 !important;
+        }
+        .price-card {
+            transition: transform 0.2s;
+            height: 100%; /* Ensure cards take full height of the column */
+        }
+        .price-card:hover {
+            transform: scale(1.05);
+        }
+        .btn-card-new {
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            color: #28a745;
+            border: 2px solid #28a745;
+            background-color: transparent;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-card-new:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    
+    <section id="packages" class="py-5">
+        <div class="container-fluid fade-up">
+            <div class="text-end">
+                <a href="{% url "dashboard" %}"><button class="btn btn-card-new mt-auto">Your Subscripton</button></a>
+            </div>
+            <div class="container py-5">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <h2 class="text-success">Our Packages</h2>
+                        <p class="text-secondary">Especially Designed For Family, Bachelor, Students, and Job-holders</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Card 1 -->
+                    {% for a in all %}
+                    <div class="col-lg-3 col-md-6 mb-4 d-flex align-items-stretch">
+                        <div class="card price-card">
+                            <div class="card-header bg-light">
+                                <h2>{{a.item}} Day's Plan</h2>
+                            </div>
+                            <div class="card-body text-center">
+                                <h6 class="text-warning">Regular {{a.Reguler_balance}} BDT <span class="text-success">***</span></h6>
+                                <h6 class="text-warning">Premium {{a.Primium_balance}} BDT <span class="text-success">*****</span></h6>
+                                <div class="features my-3">
+                                    <p class="mb-1">&#x2022; Special For Try Our Service.</p>
+                                    <p class="mb-1">&#x2022; Special For Patient Guardian.</p>
+                                    <p class="mb-1">&#x2022; Special For Weekend.</p>
+                                    <p class="mb-1">&#x2022; No Flexible Meal.</p>
+                                </div>
+                                <a href="{% url "sub" a.p_slug %}"><button class="btn btn-card-new mt-auto">Subscribe</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>    
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

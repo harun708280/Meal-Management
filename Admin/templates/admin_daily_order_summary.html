@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Daily Order Summary</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .green-header th {
+            background-color: #28a733 !important;
+            color: white;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; background-color: #28a733; color: white; padding: 10px;">Daily Order Summary for {{ today }}</h1>
+
+
+        <div style="display: flex;">
+            <div style="margin-left: 10px;">
+                <h2 style>Lunch Orders</h2>
+                <table style="border-collapse: collapse;">
+                    <tr class="green-header">
+                        <th style="border: 1px solid black; padding: 8px;">Type</th>
+                        <th style="border: 1px solid black; padding: 8px;">Quantity</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Regular</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ orders.lunch.Basic }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 6px;">Premium</td>
+                        <td style="border: 1px solid black; padding: 6px;">{{ orders.lunch.Premium }}</td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div style="margin-left: 10px;">
+                <h2>Dinner Orders</h2>
+                <table style="border-collapse: collapse;">
+                    <tr class="green-header">
+                        <th style="border: 1px solid black; padding: 8px;">Type</th>
+                        <th style="border: 1px solid black; padding: 8px;">Quantity</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 6px;">Regular</td>
+                        <td style="border: 1px solid black; padding: 6px;">{{ orders.dinner.Basic }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Premium</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ orders.dinner.Premium }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        
+
+
+        <h2>Subscription Plans</h2>
+        <table>
+            <thead class="green-header">
+                <tr>
+                    <th>Serial</th>
+                    <th>User</th>
+                    <th>Category</th>
+                    <th>Plan</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Lunch Status</th>
+                    <th>Dinner Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in info %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.user }}</td>
+                    <td>{{ i.category }}</td>
+                    <td>{{ i.plan }} Day</td>
+                    <td>{{ i.start_date }}</td>
+                    <td>{{ i.end_date }}</td>
+                    <td>{% if i.is_lunch_off %}OFF{% else %}ON{% endif %}</td>
+                    <td>{% if i.is_dinner_off %}OFF{% else %}ON{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

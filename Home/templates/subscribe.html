@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Packages - NowCook</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS styles */
+        .bg-light {
+            background-color: #28a733 !important;
+        }
+        .price-card {
+            transition: transform 0.2s;
+            height: 100%; /* Ensure cards take full height of the column */
+        }
+        .price-card:hover {
+            transform: scale(1.05);
+        }
+        .btn-card-new {
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            color: #28a745;
+            border: 2px solid #28a745;
+            background-color: transparent;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-card-new:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .form-container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 100%; /* Ensure form takes full height of the column */
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <a href="{% url "home" %}"><button class="btn btn-card-new mt-auto">Back to Home</button></a>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2 class="text-success">Our Packages</h2>
+            <p class="text-secondary">Especially Designed For Family, Bachelor, Students, and Job-holders</p>
+        </div>
+        <div class="row">
+            <!-- Card 1 -->
+            <div class="col-lg-6 col-md-6 mb-4 d-flex align-items-stretch">
+                <div class="card price-card">
+                    <div class="card-header bg-light">
+                        <h2>{{ new.item }} Day's Plan</h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <h6 class="text-warning">Regular {{ new.Reguler_balance }} BDT <span class="text-success">***</span></h6>
+                        <h6 class="text-warning">Premium {{ new.Primium_balance }} BDT <span class="text-success">*****</span></h6>
+                        <div class="features my-3">
+                            <p class="mb-1">&#x2022; Special For Try Our Service.</p>
+                            <p class="mb-1">&#x2022; Special For Patient Guardian.</p>
+                            <p class="mb-1">&#x2022; Special For Weekend.</p>
+                            <p class="mb-1">&#x2022; No Flexible Meal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Card 1 -->
+            <div class="col-lg-6 col-md-6 mb-4 d-flex align-items-stretch">
+                <div class="form-container w-100">
+                    <form method="post" class="w-100">
+                        
+                        {% csrf_token %}
+                        <div class="py-5" style="display: inline-block; text-align: left;">
+                            <label for="category" style="font-weight: bold;">Category:</label><br>
+                            <select id="category" name="category" required style="padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 100%;">
+                                <option value="" style="font-style: italic;">Select</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Premium">Premium</option>
+                            </select>
+                            <br>
+                            <label for="plan" style="font-weight: bold;">Plan:</label><br>
+                            <select id="plan" name="plan" required style="padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 100%;">
+                                <option value="" style="font-style: italic;">Select</option>
+                                <option value="3">3 Days</option>
+                                <option value="7">7 Days</option>
+                                <option value="15">15 Days</option>
+                                <option value="30">30 Days</option>
+                            </select><br><br>
+                            <!-- Add other fields as needed -->
+                            <button class="btn btn-card-new mt-auto">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
